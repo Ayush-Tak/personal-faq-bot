@@ -2,7 +2,7 @@ import os
 import torch
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader, UnstructuredMarkdownLoader
+from langchain_community.document_loaders import DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 # Config
@@ -27,8 +27,6 @@ def create_vector_store():
   # DirectoryLoader can handle multiple file types
   loader = DirectoryLoader(
     DATA_PATH,
-    glob="*.md",
-    loader_cls=UnstructuredMarkdownLoader,
     show_progress=True,
     use_multithreading=True
   )
