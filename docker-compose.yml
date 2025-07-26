@@ -1,0 +1,23 @@
+services:
+  faq-bot:
+    build: .
+    container_name: personal-faq-bot-container
+    init: true
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount the vector store and data into the container
+      - ./vector_store:/app/vector_store
+      - ./data:/app/data
+      # Add this line to mount your entire project for live code changes
+      - ./:/app
+    env_file:
+      - .env
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
