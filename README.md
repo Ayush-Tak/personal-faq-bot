@@ -57,7 +57,7 @@ echo "GOOGLE_API_KEY=your_gemini_api_key_goes_here" > .env
 ```
 2. Add Your Data
 
-Place your personal Markdown (.md) or PDF (.pdf) files inside the data/ directory.
+Place your personal Markdown (.md) files inside the data/ directory.
 
 3. Build and Ingest Documents
 
