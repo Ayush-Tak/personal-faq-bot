@@ -1,43 +1,17 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# Environment
-.env
-.venv
-env/
-venv/
-ENV/
-
-# Docker
-docker-compose.override.yml
-
-# Vector Store
-vector_store/
-
-# IDE specific
-.idea/
-.vscode/
+fastapi
+uvicorn[standard]
+python-dotenv
+langchain
+langchain-google-genai
+langchain-community
+# Add the new package for HuggingFace integrations
+langchain-huggingface
+sentence-transformers
+torch --index-url https://download.pytorch.org/whl/cu118
+# For vector storage
+faiss-gpu
+# For document loading
+unstructured[md]
+pypdf
+numpy<2.0
