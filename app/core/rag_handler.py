@@ -27,24 +27,27 @@ def initialize_rag_pipeline():
         encode_kwargs={'normalize_embeddings': True}
     )
     db = FAISS.load_local(VECTOR_STORE_PATH, embeddings, allow_dangerous_deserialization=True)
-    retriever = db.as_retriever(search_kwargs={'k': 3})
+    retriever = db.as_retriever(search_kwargs={'k': 4})
 
-    prompt_template = """
-    You are a helpful AI assistant specialized in answering questions based only on the provided context.
+    prompt_template = """\
+You are Athena, an expert retrieval‑augmented assistant powered by Google Gemini 1.5 Pro.
+Your goal is to answer the user's question *only* using the information in the provided context.
+Cite each fact you use in brackets with its source ID (e.g. [doc_3]).
 
-    Follow these rules:
-    - Use only the information from the context to answer the question.
-    - If the answer is not found in the context, respond with "I don't know."
-    - Be concise, factual, and avoid speculation.
+# CONTEXT
+{context}
 
-    Context:
-    {context}
+# QUESTION
+{question}
 
-    Question:
-    {question}
+# INSTRUCTIONS
+1. Read the CONTEXT and extract the pieces directly relevant to the QUESTION.
+2. If the CONTEXT contains the answer, synthesize it into a clear, concise response (1–3 paragraphs max).
+3. Cite each distinct fact or data point with its source ID in square brackets.
+4. If the answer is *not* in the CONTEXT, respond:
+   “I’m sorry, but I can’t find enough information in the provided context to answer that.”
 
-    Answer (based only on the context above):
-    """
+# ANSWER:"""
     PROMPT = PromptTemplate(
         template=prompt_template, input_variables=["context", "question"]
     )
