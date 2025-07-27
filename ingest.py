@@ -23,10 +23,10 @@ def create_vector_store():
   device = "cuda" if torch.cuda.is_available() else "cpu"
   print(f"Using device: {device}")
 
-  # Load documents
-  # DirectoryLoader can handle multiple file types
+  # Load documents:
   loader = DirectoryLoader(
     DATA_PATH,
+    glob="**/*",
     show_progress=True,
     use_multithreading=True
   )
