@@ -55,18 +55,21 @@ echo "GOOGLE_API_KEY=your_gemini_api_key_goes_here" > .env
 # You can also pass the key directly via environment variable in production:
 #   docker run -e GOOGLE_API_KEY=your_key ...
 ```
-2. Add Your Data
+2. Add Your Source Documents
 
-Place your personal Markdown (.md) files inside the data/ directory.
+Note: The PDF parser works best with documents that contain selectable, machine-readable text. Scanned documents or images of text may not be processed correctly.
 
-3. Build and Ingest Documents
+3. Build, Pre-process and Ingest Data
 
-This two-step process builds the Docker image and then runs the one-off ingestion script to create your vector store.
+This three-step process builds the Docker image and then runs the preprocessor and the one-off ingestion script to create your vector store.
 ```bash
 # 1. Build the main service image
 docker-compose build
 
-# 2. Run the ingestion script to create the vector store
+# 2. Run the pre-processing script to convert all documents to clean Markdown
+docker-compose run --rm faq-bot python preprocess.py
+
+# 3. Run the ingestion script to create the vector store from the clean files
 docker-compose run --rm faq-bot python ingest.py
 ```
 4. Start the API Server
